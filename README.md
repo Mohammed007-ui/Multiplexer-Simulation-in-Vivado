@@ -76,36 +76,20 @@ module mux4_to_1_gate (
     wire not_S0, not_S1;
     wire A_and, B_and, C_and, D_and;
 
-    // Inverters for select lines
-    not (not_S0, S0);
-    not (not_S1, S1);
-
-    // AND gates for each input with select lines
-    and (A_and, A, not_S1, not_S0);
-    and (B_and, B, not_S1, S0);
-    and (C_and, C, S1, not_S0);
-    and (D_and, D, S1, S0);
-
-    // OR gate to combine all AND gate outputs
-    or (Y, A_and, B_and, C_and, D_and);
+  module multiplexer(s1,s0,a,b,c,d,y);
+input s1,s0,a,b,c,d;
+output y;
+wire[3:0]w;
+and g1(w[0],~s1,~s0,a);
+and g2(w[1],~s1,s0,b);
+and g3(w[2],s1,~s0,c);
+and g4(w[3],s1,s0,d);
+or g5(y,w[0],w[1],w[2],w[3]);
 endmodule
 
 4:1 MUX Data Flow Implementation
 
-// mux4_to_1_dataflow.v
-module mux4_to_1_dataflow (
-    input wire A,
-    input wire B,
-    input wire C,
-    input wire D,
-    input wire S0,
-    input wire S1,
-    output wire Y
-);
-    assign Y = (~S1 & ~S0 & A) |
-               (~S1 & S0 & B) |
-               (S1 & ~S0 & C) |
-               (S1 & S0 & D);
+   
 endmodule
 
 4:1 MUX Behavioral Implementation
@@ -256,12 +240,7 @@ endmodule
 
 Sample Output
 
-Time=0 | S1=0 S0=0 | Inputs: A=0 B=0 C=0 D=0 | Y_gate=0 | Y_dataflow=0 | Y_behavioral=0 | Y_structural=0
-Time=10 | S1=0 S0=0 | Inputs: A=0 B=0 C=0 D=0 | Y_gate=0 | Y_dataflow=0 | Y_behavioral=0 | Y_structural=0
-Time=20 | S1=0 S0=0 | Inputs: A=0 B=0 C=0 D=1 | Y_gate=0 | Y_dataflow=0 | Y_behavioral=0 | Y_structural=0
-Time=30 | S1=0 S0=1 | Inputs: A=0 B=0 C=0 D=1 | Y_gate=0 | Y_dataflow=0 | Y_behavioral=0 | Y_structural=0
-Time=40 | S1=1 S0=0 | Inputs: A=0 B=0 C=0 D=1 | Y_gate=0 | Y_dataflow=0 | Y_behavioral=0 | Y_structural=0
-...
+![gate level 4_1 mux](https://github.com/user-attachments/assets/251ee385-1312-4cad-8c9b-a7cbc67bf25f)
 
 Conclusion:
 
