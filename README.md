@@ -63,19 +63,6 @@ Verilog Code
 
 4:1 MUX Gate-Level Implementation
 
-// mux4_to_1_gate.v
-module mux4_to_1_gate (
-    input wire A,
-    input wire B,
-    input wire C,
-    input wire D,
-    input wire S0,
-    input wire S1,
-    output wire Y
-);
-    wire not_S0, not_S1;
-    wire A_and, B_and, C_and, D_and;
-
   module multiplexer(s1,s0,a,b,c,d,y);
 input s1,s0,a,b,c,d;
 output y;
@@ -86,33 +73,26 @@ and g3(w[2],s1,~s0,c);
 and g4(w[3],s1,s0,d);
 or g5(y,w[0],w[1],w[2],w[3]);
 endmodule
+output:![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
 
 4:1 MUX Data Flow Implementation
+module mux_4to1 (a,b,c,d,S0,S1,Y);
 
-   
+    input a,b,c,d;
+    input  S0, S1;       
+    output  Y ;          
+
+assign Y = (S1 == 0 && S0 == 0) ? a :
+               (S1 == 0 && S0 == 1) ? b :
+               (S1 == 1 && S0 == 0) ? c :
+               (S1 == 1 && S0 == 1) ? d:
 endmodule
+output:![4_1 mux data flow](https://github.com/user-attachments/assets/8777b136-21c3-48d1-b913-2869daefbeb8)
+
+
 
 4:1 MUX Behavioral Implementation
 
-// mux4_to_1_behavioral.v
-module mux4_to_1_behavioral (
-    input wire A,
-    input wire B,
-    input wire C,
-    input wire D,
-    input wire S0,
-    input wire S1,
-    output reg Y
-);
-    always @(*) begin
-        case ({S1, S0})
-            2'b00: Y = A;
-            2'b01: Y = B;
-            2'b10: Y = C;
-            2'b11: Y = D;
-            default: Y = 1'bx; // Undefined
-        endcase
-    end
 endmodule
 
 4:1 MUX Structural Implementation
