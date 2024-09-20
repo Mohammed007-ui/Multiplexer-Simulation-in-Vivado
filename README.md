@@ -76,6 +76,43 @@ endmodule
 output:![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
 
 4:1 MUX Data Flow Implementation
+
+module mul_data(
+    output Y,        
+    input I0, I1, I2, I3, 
+    input S0, S1     
+);
+
+    assign Y = (~S1 & ~S0 & I0) |  
+               (~S1 & S0 & I1)  |  
+               (S1 & ~S0 & I2)  |  
+               (S1 & S0 & I3);     
+
+endmodule
+output:![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
+
+
+
+4:1 MUX Behavioral Implementation
+module mux(s, i, y);
+input [1:0] s;
+input [3:0] i;
+output reg y;  
+
+always @(s or i)  
+begin
+    case (s)
+        2'b00: y = i[0];   // When s = 00, select i[0]
+        2'b01: y = i[1];   // When s = 01, select i[1]
+        2'b10: y = i[2];   // When s = 10, select i[2]
+        2'b11: y = i[3];   // When s = 11, select i[3]
+        default: y = 1'b0; // Optional: Add a default case for safety
+    endcase
+end
+endmodule
+output:![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
+
+4:1 MUX Structural Implementation
 module mux_4to1 (a,b,c,d,S0,S1,Y);
 
     input a,b,c,d;
@@ -86,48 +123,9 @@ assign Y = (S1 == 0 && S0 == 0) ? a :
                (S1 == 0 && S0 == 1) ? b :
                (S1 == 1 && S0 == 0) ? c :
                (S1 == 1 && S0 == 1) ? d:
-endmodule
-output:![4_1 mux data flow](https://github.com/user-attachments/assets/8777b136-21c3-48d1-b913-2869daefbeb8)
-
-
-
-4:1 MUX Behavioral Implementation
 
 endmodule
-
-4:1 MUX Structural Implementation
-
-// mux2_to_1.v
-module mux2_to_1 (
-    input wire A,
-    input wire B,
-    input wire S,
-    output wire Y
-);
-    assign Y = S ? B : A;
-endmodule
-
-
-// mux4_to_1_structural.v
-module mux4_to_1_structural (
-    input wire A,
-    input wire B,
-    input wire C,
-    input wire D,
-    input wire S0,
-    input wire S1,
-    output wire Y
-);
-    wire mux_low, mux_high;
-
-    // Instantiate two 2:1 MUXes
-    mux2_to_1 mux0 (.A(A), .B(B), .S(S0), .Y(mux_low));
-    mux2_to_1 mux1 (.A(C), .B(D), .S(S0), .Y(mux_high));
-
-    // Instantiate the final 2:1 MUX
-    mux2_to_1 mux_final (.A(mux_low), .B(mux_high), .S(S1), .Y(Y));
-endmodule
-
+output:![structural out](https://github.com/user-attachments/assets/ba095f84-f961-454c-8690-e6c01e1018bb)
 Testbench Implementation
 
 // mux4_to_1_tb.v
@@ -220,7 +218,10 @@ endmodule
 
 Sample Output
 
-![gate level 4_1 mux](https://github.com/user-attachments/assets/251ee385-1312-4cad-8c9b-a7cbc67bf25f)
+output:![gate level 4_1 mux](https://github.com/user-attachments/assets/251ee385-1312-4cad-8c9b-a7cbc67bf25f)
+output:![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
+output:![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
+output:![structural out](https://github.com/user-attachments/assets/ba095f84-f961-454c-8690-e6c01e1018bb)
 
 Conclusion:
 
