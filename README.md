@@ -1,11 +1,13 @@
-SIMULATION AND IMPLEMENTATION OF LOGIC GATES
-AIM:
+# SIMULATION AND IMPLEMENTATION OF LOGIC GATES:
+### AIM:
+
 To design and simulate a 4:1 Multiplexer (MUX) using Verilog HDL in four different modeling styles—Gate-Level, Data Flow, Behavioral, and Structural—and to verify its functionality through a testbench using the Vivado 2023.1 simulation environment. The experiment aims to understand how different abstraction levels in Verilog can be used to describe the same digital logic circuit and analyze their performance.
 
-APPARATUS REQUIRED:
+### APPARATUS REQUIRED:
+
 Vivado 2023.1
 
-Procedure
+### PROCEDURE:
 1. Launch Vivado
 Open Vivado 2023.1 by double-clicking the Vivado icon or searching for it in the Start menu.
 2. Create a New Project
@@ -51,19 +53,19 @@ You can include the timing diagram from the simulation window showing the correc
 10. Close the Simulation
 Once done, close the simulation by going to Simulation → "Close Simulation".
 
-Logic Diagram
+### LOGIC DIAGRAM:
 
 ![image](https://github.com/user-attachments/assets/d4ab4bc3-12b0-44dc-8edb-9d586d8ba856)
 
-Truth Table
+### TRUTH TABLE:
 
 ![image](https://github.com/user-attachments/assets/c850506c-3f6e-4d6b-8574-939a914b2a5f)
 
-Verilog Code
+### VERILOG CODE:
 
-4:1 MUX Gate-Level Implementation:
+### 4:1 MUX GATE LEVEL IMPLEMENTATION:
 ~~~
-  module multiplexer(s1,s0,a,b,c,d,y);
+ module multiplexer(s1,s0,a,b,c,d,y);
 input s1,s0,a,b,c,d;
 output y;
 wire[3:0]w;
@@ -74,60 +76,80 @@ and g4(w[3],s1,s0,d);
 or g5(y,w[0],w[1],w[2],w[3]);
 endmodule
 ~~~
-output:
+### OUTPUT:
+
 ![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
 
-4:1 MUX Data Flow Implementation:
-
-module mul_data(
-    output Y,        
-    input I0, I1, I2, I3, 
-    input S0, S1     
-);
-
-    assign Y = (~S1 & ~S0 & I0) |  
-               (~S1 & S0 & I1)  |  
-               (S1 & ~S0 & I2)  |  
-               (S1 & S0 & I3);     
-
+### 4:1 MUX DATA  FLOW IMPLEMENTATION:
+~~~
+module mul_data( Y,I0,I1,I2,I3,S0,S1);
+output Y;       
+input I0, I1, I2, I3;
+input S0, S1;     
+assign Y = (~S1 & ~S0 & I0) |  
+          (~S1 & S0 & I1)  |  
+           (S1 & ~S0 & I2)  |  
+           (S1 & S0 & I3);
 endmodule
-output:![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
+~~~
+### OUTPUT:
+
+
+![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
 
 
 
-4:1 MUX Behavioral Implementation
+### 4:1 MUX BEHAVIOURAL  IMPLEMENTATION:
+
+~~~
 module mux(s, i, y);
 input [1:0] s;
 input [3:0] i;
 output reg y;  
-
 always @(s or i)  
 begin
-    case (s)
-        2'b00: y = i[0];   // When s = 00, select i[0]
-        2'b01: y = i[1];   // When s = 01, select i[1]
-        2'b10: y = i[2];   // When s = 10, select i[2]
-        2'b11: y = i[3];   // When s = 11, select i[3]
-        default: y = 1'b0; // Optional: Add a default case for safety
+ case (s)
+        2'b00: y = i[0];  
+        2'b01: y = i[1];   
+        2'b10: y = i[2];
+        2'b11: y = i[3];  
+        default: y = 1'b0;
     endcase
 end
 endmodule
-output:![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
 
-4:1 MUX Structural Implementation
+~~~
+### OUTPUT:
+
+![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
+
+### 4:1 MUX STRUCTURAL IMPLEMENTATION:
+
+~~~
 module mux_4to1 (a,b,c,d,S0,S1,Y);
-
-    input a,b,c,d;
-    input  S0, S1;       
-    output  Y ;          
-
+input a,b,c,d;
+input  S0, S1;       
+output  Y ;          
 assign Y = (S1 == 0 && S0 == 0) ? a :
-               (S1 == 0 && S0 == 1) ? b :
-               (S1 == 1 && S0 == 0) ? c :
-               (S1 == 1 && S0 == 1) ? d:
-
+ (S1 == 0 && S0 == 1) ? b :
+(S1 == 1 && S0 == 0) ? c :
+(S1 == 1 && S0 == 1) ? d:
 endmodule
-output:![structural out](https://github.com/user-attachments/assets/ba095f84-f961-454c-8690-e6c01e1018bb)
+~~~
+### OUTPUT:
+
+![structural out](https://github.com/user-attachments/assets/ba095f84-f961-454c-8690-e6c01e1018bb)
+
+
+
+
+
+
+
+
+
+
+
 Testbench Implementation
 
 // mux4_to_1_tb.v
