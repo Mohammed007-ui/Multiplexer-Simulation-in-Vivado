@@ -61,8 +61,8 @@ Truth Table
 
 Verilog Code
 
-4:1 MUX Gate-Level Implementation
-
+4:1 MUX Gate-Level Implementation:
+~~~
   module multiplexer(s1,s0,a,b,c,d,y);
 input s1,s0,a,b,c,d;
 output y;
@@ -73,9 +73,11 @@ and g3(w[2],s1,~s0,c);
 and g4(w[3],s1,s0,d);
 or g5(y,w[0],w[1],w[2],w[3]);
 endmodule
-output:![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
+~~~
+output:
+![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
 
-4:1 MUX Data Flow Implementation
+4:1 MUX Data Flow Implementation:
 
 module mul_data(
     output Y,        
@@ -214,14 +216,6 @@ module mux4_to_1_tb;
                  $time, S1, S0, A, B, C, D, Y_gate, Y_dataflow, Y_behavioral, Y_structural);
     end
 endmodule
-
-
-Sample Output
-
-output:![gate level 4_1 mux](https://github.com/user-attachments/assets/251ee385-1312-4cad-8c9b-a7cbc67bf25f)
-output:![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
-output:![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
-output:![structural out](https://github.com/user-attachments/assets/ba095f84-f961-454c-8690-e6c01e1018bb)
 
 Conclusion:
 
