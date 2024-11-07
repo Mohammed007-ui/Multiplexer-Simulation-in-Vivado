@@ -95,7 +95,8 @@ endmodule
 ### OUTPUT:
 
 
-![data flow out](https://github.com/user-attachments/assets/167826da-bc70-42bb-a3db-f905d005d9bb)
+![data flow out]![image](https://github.com/user-attachments/assets/816a53de-f3e4-48d5-b19d-5c9a6852c0d1)
+
 
 
 
