@@ -123,7 +123,8 @@ endmodule
 ~~~
 ### OUTPUT:
 
-![behavioral output](https://github.com/user-attachments/assets/50ba46bf-5fb2-4d63-904c-b376f776cb84)
+![behavioral output]![image](https://github.com/user-attachments/assets/d96ab7c6-7609-479c-99a5-c2c9508f1924)
+
 
 ### 4:1 MUX STRUCTURAL IMPLEMENTATION:
 
