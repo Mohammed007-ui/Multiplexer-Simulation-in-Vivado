@@ -78,7 +78,8 @@ endmodule
 ~~~
 ### OUTPUT:
 
-![gate level 4_1 mux](https://github.com/user-attachments/assets/b37591ed-09f7-4c20-b2c1-02959396473c)
+![gate level 4_1 mux]![image](https://github.com/user-attachments/assets/3705961c-b0ff-4751-8cb0-95d988187f6c)
+
 
 ### 4:1 MUX DATA  FLOW IMPLEMENTATION:
 ~~~
